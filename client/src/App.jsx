@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import pencil from './assets/pencil.svg'
+import book from './assets/book.svg' 
+import construction from './assets/construction.svg'
 import './App.css'
 
 function App() {
@@ -10,20 +11,23 @@ function App() {
     <>
       <div>
         <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+          <img src={book} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+          <img src={pencil} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>My Muse</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          Click here to start writing {count}
         </button>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Currently under construction. Thanks for your patience!
         </p>
+      <a href="https://vite.dev" target="_blank">
+        <img src={construction} className="logo" alt="Vite logo" />
+      </a>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
