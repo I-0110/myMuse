@@ -1,5 +1,5 @@
 import User from './User.js';
 import Post from './Post.js';
-import Response from './Response.js';
+import Responses from './Responses.js';
 
-export { User, Post, Response }; 
+export { User, Post, Responses }; 

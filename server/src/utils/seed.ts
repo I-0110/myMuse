@@ -1,8 +1,7 @@
 import connection from '../config/connection.js';
-import { User } from '../models/index.js';
-import getRandomName from './data.js';
+import { User, Post } from '../models/index.js';
+import { getRandomName, getRandomPost } from './data.js';
 
-console.log(getRandomName());
 connection.on('error', (error) => error);
 
 connection.once('open', async () => {
@@ -13,11 +12,12 @@ connection.once('open', async () => {
     }
 
     let userCheck = await connection.db?.listCollections({ name: 'users' }).toArray();
-    if (userCheck?.lenght) {
+    if (userCheck?.length) {
         await connection.dropCollection('users');
     }
 
     const users = [];
+    const posts = getRandomPost(15); 
 
     for (let i =0; i < 20; i++) {
         const fullName = getRandomName();
@@ -32,6 +32,9 @@ connection.once('open', async () => {
     }
 
     await User.insertMany(users);
-    console.log(users);
+    await Post.insertMany(posts);
+    console.table(users);
+    console.table(posts);
+    console.info('Seeded users and posts! 🌱');
     process.exit(0);
 }); 

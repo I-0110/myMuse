@@ -4,9 +4,13 @@ import { getUsers, getSingleUser, createUser, updateUser, deleteUser } from '../
 const router = Router();
 
 // api/users
-router.route('/').get(getUsers).post(createUser).delete(deleteUser).put(updateUser);
+router.route('/').get(getUsers).post(createUser);
 
 // /api/users/:userId 
-router.route('/:userId').get(getSingleUser).post(updateUser).put(updateUser).delete(deleteUser);    
+router
+    .route('/:userId')
+    .get(getSingleUser) 
+    .put(updateUser)
+    .delete(deleteUser);
 
 export default router; 

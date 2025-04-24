@@ -42,8 +42,18 @@ export const createUser = async (req: Request, res: Response) => {
 // update user
 export const updateUser = async (req: Request, res: Response) => {
     try {
-        const user = await new User(req.body).save();
+        const user = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        );
+        if (!user) {
+            res.status(404).json({ message: 'No user found with that id!' });
+        } 
+
         res.json(user);
+        return;
+
     } catch (error) {
         console.error('Error updating user:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -53,15 +63,20 @@ export const updateUser = async (req: Request, res: Response) => {
 // delete user 
 export const deleteUser = async (req: Request, res: Response) => {
     try {
-        const dbUserData = await User.findOneAndDelete({ _id: req.params.userId });
-        if (!dbUserData) {
-            res.status(404).json({ message: 'No user found with that ID' });
+        const user = await User.findOneAndDelete({ _id: req.params.userId });
+
+        if (!user) {
+            res.status(404).json({ message: 'No user found with that id!' });
         }
-        res.json(dbUserData);   
+
+        res.json({ message: 'User successfully deleted!' });
+        return;   
     } catch (error) {
         console.error('Error deleting user:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
+
+    return;
 } 
 
 

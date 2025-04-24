@@ -1,4 +1,4 @@
-import { Schema, Document, ObjectId, Type } from 'mongoose'; 
+import { Schema, Document, ObjectId, Types } from 'mongoose'; 
 
 interface IResponse extends Document {
     reactionId: ObjectId;
@@ -11,8 +11,8 @@ const responseSchema = new Schema<IResponse>(
     {
         reactionId: {
             type: Schema.Types.ObjectId,
-            default: () => new 
-        },
+            default: () => new Types.ObjectId(),
+        },  
         responseBody: {
             type: String,
             required: true,
