@@ -227,7 +227,7 @@ const names = [
     'Hussnain',
     'Hussnan',
     'Hyden',
-    'I',
+    'Ivelis',
     'Iagan',
     'Iain',
     'Ian',
@@ -918,8 +918,64 @@ const names = [
     ``,
   ];  
 
-const getNamePart = () => names[Math.floor(Math.random() * names.length)];
+const descriptionsBodies = [
+  'How to disagree with someone',
+  'iPhone review',
+  'how-to video',
+  'video essay on the history of video games',
+  'How to make money on the App Store',
+  'Learn NextJS in five minutes (Not clickbate)',
+  'Movie trailer',
+  'Hello world',
+  'Another possible solution to the algorithm',
+  'Apology video',
+  'Submission for startup pitch',
+];
 
-const getRandomName = () => `${getNamePart()} ${getNamePart()}`;
+const possibleResponses = [
+  'I disagree!',
+  'I tried your algorithm, here were the results',
+  'This was awesome',
+  'Thank you for the great content',
+  'Please check out my video response',
+  'Like and subscribe to my channel please',
+  'Reply: The side effects of in app purchases on digital marketplaces',
+];
 
-export default getRandomName;
+
+// Get a random item given an array
+const getRandomArrItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+
+// Gets a random name part 
+const getRandomName = () =>   `${getRandomArrItem(names)} ${getRandomArrItem(names)}`; 
+
+// Function to generate random posts that we can add to the database. Includes posts responses.
+const getRandomPost = (int: number) => {
+  let results = [];
+  for (let i = 0; i < int; i++) {
+    results.push({
+      published: Math.random() < 0.5,
+      description: getRandomArrItem(descriptionsBodies),
+      responses: [...getPostResponses(3)],
+    });
+  }
+  return results;
+};
+
+// Create the responses that will be added to each video
+const getPostResponses = (int: number) => {
+  if (int === 1) {
+    return getRandomArrItem(possibleResponses);
+  }
+  let results = [];
+  for (let i = 0; i < int; i++) {
+    results.push({
+      responseBody: getRandomArrItem(possibleResponses),
+      username: getRandomName(),
+    });
+  }
+  return results;
+};
+
+// Export the functions for use in seed.js
+export { getRandomName, getRandomPost, getPostResponses };

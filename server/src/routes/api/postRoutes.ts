@@ -1,10 +1,22 @@
 import { Router } from 'express';
-import { getSinglePost, getPosts, createPost, updatePost, deletePost } from '../../controllers/postController.js';
+import { getPosts, getSinglePost, createPost, updatePost, deletePost, addPostResponse, removePostResponse } from '../../controllers/postController.js'; 
 
 const router = Router();
 
-router.route('/').get(getPosts).post(createPost).put(updatePost).delete(deletePost);
+// api/posts 
+router.route('/').get(getPosts).post(createPost);
 
-router.route('/:postId').get(getSinglePost)
+// /api/posts/:postId
+router
+    .route('/:postId')
+    .get(getSinglePost)
+    .put(updatePost)
+    .delete(deletePost);
+
+// /api/posts/:postId/responses
+router.route('/:postId/responses').post(addPostResponse);
+
+// /api/posts/:postId/responses/:responseId
+router.route('/:postId/responses/:responseId').delete(removePostResponse);
 
 export default router;
